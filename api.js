@@ -51,10 +51,9 @@ function ordersDetail(items) {
       var name = items.items[i].name;
       var price = items.items[i].price / 100;
 
-      console.log(price / 100);
-
       var currency = items.items[i].currency;
       var color = items.items[i].color;
+
       lulu.push('<li style = "color:'+ color +'">' + name + ' ' + price + currency);
       // info.appendChild(lulu);
       console.log(lulu);
