@@ -1,13 +1,16 @@
 window.onload = function(){
 
+
+// date non dispo dans JSON
   function date()
 {
     return new Date().getFullYear();
 }
 
+
+// Total prix des 3 items
 function total(data)
 {
-    // init total
     var toto = 0;
     for (var i = 0; i < data.length;i++)
     {
@@ -17,6 +20,7 @@ function total(data)
     return toto;
 }
 
+// affichage des infos-bons de commande sur page Home
 function ordersTemplate(e)
 {
     // console.log(e.items);
@@ -34,17 +38,20 @@ function ordersTemplate(e)
         '</section>';
 }
 
+// affichage détail des commandes celui l'Id récup
 function ordersDetail(items) {
   console.log(window.location.href);
   var url = new URL(window.location.href);
   var query_string = url.search;
   var search_params = new URLSearchParams(query_string);
   var id = search_params.get('id');
-  console.log(id);
-  console.log(items.id);
+
+  // console.log(id);
+  // console.log(items.id);
   if (items.id == id) {
     console.log('ok');
     var lulu = [];
+
     for(var i = 0; i < items.items.length; i++){
       // console.log(id.items.length);
       var info = document.querySelector('.info');
@@ -56,15 +63,17 @@ function ordersDetail(items) {
 
       lulu.push('<li style = "color:'+ color +'">' + name + ' ' + price + currency);
       // info.appendChild(lulu);
-      console.log(lulu);
+      // console.log(lulu);
     }
+
     return '<ul><li>Type de plat: ' + lulu +'</li></ul>';
 
-  }else{
+  } else{
     console.log('no');
   }
-
 }
+
+// récup donnés JSON
 fetch('https://raw.githubusercontent.com/popina/test-javascript/master/data.json')
     .then(res => {
         return res.json();
