@@ -1,3 +1,5 @@
+'use strict';
+
 window.onload = function(){
 
 
@@ -14,7 +16,7 @@ function total(data)
     var toto = 0;
     for (var i = 0; i < data.length;i++)
     {
-        toto += data[i].price;
+        toto += data[i].price/100;
         // console.log(toto);
     }
     return toto;
@@ -24,15 +26,15 @@ function total(data)
 function ordersTemplate(e)
 {
     // console.log(e.items);
-    return '<h1>Table N° ' + e.table + '</h1> ' +
-        '<section>' +
-            '<ul>' +
+    return '<section class="bon">' +
+            '<h2>Table N° ' + e.table + '</h2> ' +
+            '<ul class="list">' +
                 '<li>'+ e.id + '</li>' +
-                '<li class="table">' + e.table + '</li>' +
-                '<li>Invités N° ' + e.guests + '</li>' +
-                '<li>' + date() + '</li>' +
-                '<p>' + total(e.items) + '</p>' +
-                '<a id='+e.id+' href="detail.html?id=' +e.id + '">Détail de la commande</a>' +
+                '<li class="number"><i class="fas fa-utensils fa-2x"></i>' + e.table + '</li>' +
+                '<li class="number"><i class="far fa-grin-beam fa-2x"></i>' + e.guests + '</li>' +
+                '<li> 23 JUIN ' + date() + '</li>' +
+                '<li class="price">' + total(e.items) + ' €</li>' +
+                '<li><a class="click" id='+e.id+' href="detail.html?id=' +e.id + '">Détail de la commande</li></a>' +
                 // '<a id='+e.id+' href="#">Détail de la commande</a>' +
             '</ul>' +
         '</section>';
@@ -40,7 +42,7 @@ function ordersTemplate(e)
 
 // affichage détail des commandes celui l'Id récup
 function ordersDetail(items) {
-  console.log(window.location.href);
+  // console.log(window.location.href);
   var url = new URL(window.location.href);
   var query_string = url.search;
   var search_params = new URLSearchParams(query_string);
@@ -48,6 +50,7 @@ function ordersDetail(items) {
 
   // console.log(id);
   // console.log(items.id);
+  // console.log(items.table);
   if (items.id == id) {
     console.log('ok');
     var lulu = [];
@@ -61,12 +64,12 @@ function ordersDetail(items) {
       var currency = items.items[i].currency;
       var color = items.items[i].color;
 
-      lulu.push('<li style = "color:'+ color +'">' + name + ' ' + price + currency);
+      lulu.push('<li class="list-detail" style = "color:'+ color +'">' + name + ' ' + price + currency);
       // info.appendChild(lulu);
       // console.log(lulu);
     }
 
-    return '<ul><li>Type de plat: ' + lulu +'</li></ul>';
+    return '<h1>Detail de la table N°'+items.table+'</h1><ul class="bon">' + lulu +'</ul><h3>Montant total à régler : <span>'+total(items.items)+' €</span></h3>';
 
   } else{
     console.log('no');
