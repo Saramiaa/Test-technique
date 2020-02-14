@@ -82,3 +82,12 @@ h3 {
 span {
   font-size: 25px ;
 }
+
+.back {
+  text-decoration: none;
+  color: #06243e;
+}
+
+.back:hover  {
+    color: #e8c167;
+}
